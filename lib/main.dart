@@ -1,3 +1,4 @@
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:giffy_dialog/giffy_dialog.dart';
@@ -24,91 +25,108 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  String color = 'black';
   @override
   Widget build(BuildContext context) {
+    final assetsAudioPlayer = AssetsAudioPlayer();
+    assetsAudioPlayer.open(
+      Audio("assets/hpst1.mp3"),
+    );
+    final bool isLooping = assetsAudioPlayer.loop; //true / false
+    assetsAudioPlayer.loop = true; //set loop as true
 
+    assetsAudioPlayer.isLooping.listen((loop){
+      //listen to loop
+    });
+
+    assetsAudioPlayer.setVolume(0.5);
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("assets/hogwats.gif"),
+          image: AssetImage("assets/hogwarts.gif"),
           fit: BoxFit.cover,
         ),
       ),
       child: Scaffold(
+
         backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          title: Center(
-            child: Text("Harry Potter",
-            style: TextStyle(
-              fontFamily: 'Harry',
-              letterSpacing: 1.5,
-              fontWeight: FontWeight.bold,
-              fontSize: 30.0,
-            ),),
-          ),
-        ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0.0,250.0,0.0,0.0),
-              child: RaisedButton(
-                hoverColor: Colors.lightBlue,
-                onPressed: () {
-                  showDialog(
-                    context: context,builder: (_) => AssetGiffyDialog(
-                    image : Image.asset('assets/hp2.gif',
-                      fit: BoxFit.fill,),
-                    title: Text('Which Spell is Used above!!',
-                      style: TextStyle(fontSize: 22.0,fontFamily: "Lumos" ,fontWeight: FontWeight.w600),
-                    ),
-                    buttonCancelColor: Colors.black,
-                    buttonOkColor:  Colors.black,
-                    buttonOkText: Text("Vanguardia \n leviosa",
-                      style: TextStyle(fontSize:16.0,fontFamily: "Lumos",color: Colors.white),
-                    ),
-                    buttonCancelText: Text(" Petrificus \nTotalus",
-                      style: TextStyle(fontSize: 16.0,fontFamily: "Lumos",color: Colors.white),),
-                    entryAnimation: EntryAnimation.TOP_LEFT,
-                    onOkButtonPressed: () {
-                      Navigator.of(context).pop();
-                      showDialog(
-                        context: context,builder: (_) => AssetGiffyDialog(
-                        image : Image.asset('assets/hp2.gif',
-                          fit: BoxFit.fill,),
-                        title: Text('Correct!', style: TextStyle(fontSize: 22.0,color: Colors.green,fontFamily: "Lumos" ,fontWeight: FontWeight.w600),),
-                       onlyOkButton:true ,
-                        buttonOkColor: Colors.green,
-                        buttonOkText: Text("You Are Allowed to Enter \n\t\t\t      Hogwats!!",style: TextStyle(fontSize: 25.0,fontFamily: 'Magic1'),),
-                        entryAnimation: EntryAnimation.TOP_LEFT,
-                        onOkButtonPressed: () {
-                          Navigator.of(context).pop();
-                          Navigator.pushReplacementNamed(context, "/Welcome");
-                        },
-                      ),
-                      );
-                    },
-                  ),
-                  );
-                },
-                  child: Center(
-                    child: Text("Alhomora!!",
-                    style: TextStyle(
-                      fontFamily: 'Lumos',
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      fontSize: 20.0,
-                    ),
-                    ),
-                  ),
-                color: Colors.transparent,
-                shape: RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(18.0),
-                    side: BorderSide(color: Colors.white),
+            SafeArea(
+              child: Text("Harry Potter",
+                style: TextStyle(
+                  fontFamily: 'Harry',
+                  letterSpacing: 3.5,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  fontSize: 50.0,
+
+                  shadows: [
+                  Shadow(
+                  color: Colors.blue,
+                  blurRadius: 10.0,
+                  offset: Offset(5.0, 5.0),
+                )],
                 ),
+              ),
+            ),
+            RaisedButton(
+              hoverColor: Colors.lightBlue,
+              onPressed: () {
+                //highlightColor: Colors.green; //Replace with actual colors
+
+                showDialog(
+                  context: context,builder: (_) => AssetGiffyDialog(
+                  image : Image.asset('assets/hp2.gif',
+                    fit: BoxFit.fill,),
+                  title: Text('Which Spell is Used above!!',
+                    style: TextStyle(fontSize: 22.0,fontFamily: "Lumos" ,fontWeight: FontWeight.w600),
+                  ),
+                  buttonCancelColor: Colors.black,
+                  buttonOkColor:  Colors.black,
+                  buttonOkText: Text("Vanguardia \n leviosa",
+                    style: TextStyle(fontSize:16.0,fontFamily: "Lumos",color: Colors.white),
+                  ),
+                  buttonCancelText: Text(" Petrificus \nTotalus",
+                    style: TextStyle(fontSize: 16.0,fontFamily: "Lumos",color: Colors.white),),
+                  entryAnimation: EntryAnimation.TOP_LEFT,
+                  onOkButtonPressed: () {
+                    Navigator.of(context).pop();
+                    showDialog(
+                      context: context,builder: (_) => AssetGiffyDialog(
+                      image : Image.asset('assets/hp2.gif',
+                        fit: BoxFit.fill,),
+                      title: Text('Correct!', style: TextStyle(fontSize: 22.0,color: Colors.green,fontFamily: "Lumos" ,fontWeight: FontWeight.w600),),
+                     onlyOkButton:true ,
+                      buttonOkColor: Colors.green,
+                      buttonOkText: Text("You Are Allowed to Enter \n\t\t\t      Hogwats!!",style: TextStyle(fontSize: 25.0,fontFamily: 'Magic1'),),
+                      entryAnimation: EntryAnimation.TOP_LEFT,
+                      onOkButtonPressed: () {
+                        Navigator.of(context).pop();assetsAudioPlayer.stop();
+                        Navigator.pushReplacementNamed(context, "/Welcome");
+
+                      },
+                    ),
+                    );
+                  },
+                ),
+                );
+              },
+                child: Center(
+                  child: Text("Alhomora!!",
+                  style: TextStyle(
+                    fontFamily: 'Lumos',
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 20.0,
+                  ),
+                  ),
+                ),
+              color: Colors.transparent,
+              shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(18.0),
+                  side: BorderSide(color: Colors.white),
               ),
             ),
           ],
