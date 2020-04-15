@@ -6,20 +6,23 @@ import 'package:cached_network_image/cached_network_image.dart';
    @override
    _WelcomeState createState() => _WelcomeState();
  }
- 
+
  class _WelcomeState extends State<Welcome> {
    @override
    Widget build(BuildContext context) {
-     final assetsAudioPlayer = AssetsAudioPlayer();assetsAudioPlayer.setVolume(0.5);
+
+     final assetsAudioPlayer = AssetsAudioPlayer();
+     assetsAudioPlayer.setVolume(1.0);
      assetsAudioPlayer.open(
-       Audio("assets/hp2.mp3"),
+     Audio("assets/hp2.mp3"),
      );
+
      final bool isLooping = assetsAudioPlayer.loop; //true / false
      assetsAudioPlayer.loop = true; //set loop as true
-
      assetsAudioPlayer.isLooping.listen((loop){
        //listen to loop
      });
+
      return Scaffold(
        backgroundColor: Colors.black,
        appBar: AppBar(
@@ -34,6 +37,26 @@ import 'package:cached_network_image/cached_network_image.dart';
                fontSize: 22.0,
              ),),
          ),
+         actions: <Widget>[
+           IconButton(
+             icon: Icon(
+               Icons.volume_off,
+             ),
+             onPressed:(){
+                 assetsAudioPlayer.stop();
+             } ,
+           ),
+           IconButton(
+             icon: Icon(
+               Icons.volume_up,
+             ),
+             onPressed:(){
+               assetsAudioPlayer.open(
+                 Audio("assets/hp2.mp3"),
+               );
+             } ,
+           ),
+         ],
        ),
        body: Column(
          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -42,15 +65,16 @@ import 'package:cached_network_image/cached_network_image.dart';
              children: <Widget>[
                Expanded(flex: 1,
                  child: FlatButton(
-
                  child :  CachedNetworkImage(
                      imageUrl: "https://i.gifer.com/9k1y.gif",
                      placeholder: (context, url) => CircularProgressIndicator(),
                      errorWidget: (context, url, error) => Icon(Icons.error),
                    ),
                    onPressed: (){
-                     Navigator.pushNamed(context, "/griff");
                      assetsAudioPlayer.stop();
+                     Navigator.pushReplacementNamed(context, "/griff");
+                     assetsAudioPlayer.stop();
+
                    },
                  ),
                ),
@@ -62,7 +86,9 @@ import 'package:cached_network_image/cached_network_image.dart';
                      errorWidget: (context, url, error) => Icon(Icons.error),
                    ) ,
                    onPressed: (){
+                     assetsAudioPlayer.stop();
                      Navigator.pushNamed(context, "/slyth");
+                     assetsAudioPlayer.stop();
                    },
                    ),
                ),
@@ -76,8 +102,9 @@ import 'package:cached_network_image/cached_network_image.dart';
                      placeholder: (context, url) => CircularProgressIndicator(),
                      errorWidget: (context, url, error) => Icon(Icons.error),
                    ),
-                   onPressed: (){
+                   onPressed: (){assetsAudioPlayer.stop();
                      Navigator.pushNamed(context, "/raven");
+                   assetsAudioPlayer.stop();
                    },
                    ),
                  ),
@@ -88,7 +115,11 @@ import 'package:cached_network_image/cached_network_image.dart';
                        placeholder: (context, url) => CircularProgressIndicator(),
                        errorWidget: (context, url, error) => Icon(Icons.error),
                      ),
-                    onPressed: (){     Navigator.pushNamed(context, "/huffle");},
+                    onPressed: (){
+                      assetsAudioPlayer.stop();
+                       Navigator.pushNamed(context, "/huffle");
+                      assetsAudioPlayer.stop();
+                       },
                      ),
                  ),
                ],

@@ -61,21 +61,19 @@ class _HomeState extends State<Home> {
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                   fontSize: 50.0,
-
                   shadows: [
                   Shadow(
-                  color: Colors.blue,
+                  color: Colors.blueAccent,
                   blurRadius: 10.0,
                   offset: Offset(5.0, 5.0),
-                )],
+                  ),
+                  ],
                 ),
               ),
             ),
             RaisedButton(
               hoverColor: Colors.lightBlue,
               onPressed: () {
-                //highlightColor: Colors.green; //Replace with actual colors
-
                 showDialog(
                   context: context,builder: (_) => AssetGiffyDialog(
                   image : Image.asset('assets/hp2.gif',
@@ -105,7 +103,6 @@ class _HomeState extends State<Home> {
                       onOkButtonPressed: () {
                         Navigator.of(context).pop();assetsAudioPlayer.stop();
                         Navigator.pushReplacementNamed(context, "/Welcome");
-
                       },
                     ),
                     );
@@ -119,6 +116,7 @@ class _HomeState extends State<Home> {
                     fontFamily: 'Lumos',
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
+                    letterSpacing: 2.0,
                     fontSize: 20.0,
                   ),
                   ),
