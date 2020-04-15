@@ -1,6 +1,7 @@
 # harrypotter
 
 A new Flutter application.
+A simple Harry Potter theme utility app
 
 ## Getting Started
 
